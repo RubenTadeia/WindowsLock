@@ -2,9 +2,9 @@
 $Path = "C:\Program Files (x86)\Google\Chrome\Application\"
 Start-Process -WorkingDirectory $Path chrome.exe -WindowStyle Maximized
 
-py C:\Ruben\NOS\powershell\lock-PC\pythonKey.py
+python C:\Ruben\NOS\WindowsLock\pythonKey.py
 
-$y = Get-Content C:\Ruben\NOS\powershell\lock-PC\text.txt -First 1
+$y = Get-Content C:\Ruben\NOS\WindowsLock\doNotDeleteMe.txt -First 1
 
 write-host($y)
 
