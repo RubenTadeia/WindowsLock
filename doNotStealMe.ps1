@@ -1,15 +1,15 @@
 ﻿cls
+$scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
 $Path = "C:\Program Files (x86)\Google\Chrome\Application\"
 Start-Process -WorkingDirectory $Path chrome.exe -WindowStyle Maximized
 
-python C:\Ruben\NOS\WindowsLock\pythonKey.py
+python $scriptPath\pythonKey.py $scriptPath
 
-$y = Get-Content C:\Ruben\NOS\WindowsLock\doNotDeleteMe.txt -First 1
-
-write-host($y)
+$y = Get-Content $scriptPath\doNotDeleteMe.txt -First 1
 
 if($y -eq "1"){
-   rundll32.exe user32.dll,LockWorkStation
+   #rundll32.exe user32.dll,LockWorkStation
+   write-host("You asassd")
 }else {
    write-host("You hacked my computer...")
 }

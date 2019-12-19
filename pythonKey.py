@@ -4,31 +4,33 @@ import datetime
 def main():
 	x = datetime.datetime.now()
 	
+	pathToScript = sys.argv[1]
+
 	#Get the config variables defined by the user
-	supportFile = setConfigVars("doNotDelete")
-	imgFolder = setConfigVars("img")
+	supportFile = str(pathToScript) + setConfigVars("doNotDelete", pathToScript)
+	imgFolder = str(pathToScript) + setConfigVars("img", pathToScript)
 	imgName = imgFolder + x.strftime("%f") + ".png"
 
-	#Set
+	print(supportFile)
+	print(imgFolder)
+	print(imgName)
+	#Reset the value in the file, to ensure it only locks after the keyboard or mouse usage
 	writeInFile(supportFile,"0")
 
-	# Collect events until released
-	with Listener(
-			on_press=on_press,
-			on_release=on_release,
-			on_move=on_move,
-			on_click=on_click,
-			on_scroll=on_scroll) as listenerK:
-		listenerK.join()
+	# Starting Mouse Listener
+	listener = mouse.Listener(
+		on_press=on_press,
+		on_release=on_release,
+		on_move=on_move,
+		on_click=on_click,
+		on_scroll=on_scroll)
+	listener.start()
 
-	# ...or, in a non-blocking fashion:
-	#listener = Listener(
-	#	on_press=on_press,
-	#	on_release=on_release,
-	#	on_move=on_move,
-	#	on_click=on_click,
-	#	on_scroll=on_scroll)
-	#listener.start()
+	# Starting Keyboard Listener
+	listener = keyboard.Listener(
+		on_press=on_press,
+		on_release=on_release)
+	listener.start()
 	
 	writeInFile(supportFile,"1")
 	
