@@ -1,13 +1,12 @@
 import os, sys
 import cv2
 from pynput import mouse 
-from pynput.mouse import Button, Controller
+from pynput.mouse import Button, Listener, Controller
 from pynput import keyboard
 from pynput.keyboard import Key, Listener, KeyCode
 
 def setConfigVars(key, pathToScript):
 	configFile = str(pathToScript) + '\\vars.config'
-	print (configFile)
 	with open(configFile) as fi:
 		lines = fi.readlines()
 		for line in lines:

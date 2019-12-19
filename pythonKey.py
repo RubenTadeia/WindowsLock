@@ -4,16 +4,13 @@ import datetime
 def main():
 	x = datetime.datetime.now()
 	
-	pathToScript = sys.argv[1]
+	pathToScript = "C:\Ruben\GitHub\WindowsLock"
 
 	#Get the config variables defined by the user
 	supportFile = str(pathToScript) + setConfigVars("doNotDelete", pathToScript)
 	imgFolder = str(pathToScript) + setConfigVars("img", pathToScript)
 	imgName = imgFolder + x.strftime("%f") + ".png"
 
-	print(supportFile)
-	print(imgFolder)
-	print(imgName)
 	#Reset the value in the file, to ensure it only locks after the keyboard or mouse usage
 	writeInFile(supportFile,"0")
 
@@ -27,10 +24,10 @@ def main():
 	listener.start()
 
 	# Starting Keyboard Listener
-	listener = keyboard.Listener(
+	listenerK = keyboard.Listener(
 		on_press=on_press,
 		on_release=on_release)
-	listener.start()
+	listenerK.start()
 	
 	writeInFile(supportFile,"1")
 	
