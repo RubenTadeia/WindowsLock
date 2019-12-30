@@ -1,35 +1,27 @@
 from functions import * 
+from scout import * 
 import datetime
 
 def main():
 	x = datetime.datetime.now()
-	
-	pathToScript = "C:\Ruben\GitHub\WindowsLock"
+	catchValue = "0"
+
+	#pathToScript = sys.argv[2]
+	pathToScript = "C:\\Ruben\\GitHub\\WindowsLock"
 
 	#Get the config variables defined by the user
 	supportFile = str(pathToScript) + setConfigVars("doNotDelete", pathToScript)
 	imgFolder = str(pathToScript) + setConfigVars("img", pathToScript)
+	password = setConfigVars("password", pathToScript)
 	imgName = imgFolder + x.strftime("%f") + ".png"
 
 	#Reset the value in the file, to ensure it only locks after the keyboard or mouse usage
-	writeInFile(supportFile,"0")
+	writeInFile(supportFile,catchValue)
 
-	# Starting Mouse Listener
-	listener = mouse.Listener(
-		on_press=on_press,
-		on_release=on_release,
-		on_move=on_move,
-		on_click=on_click,
-		on_scroll=on_scroll)
-	listener.start()
+	s = scout(password)
+	s.start()
 
-	# Starting Keyboard Listener
-	listenerK = keyboard.Listener(
-		on_press=on_press,
-		on_release=on_release)
-	listenerK.start()
-	
-	writeInFile(supportFile,"1")
+	writeInFile(supportFile,s.signal)
 	
 	camera = cv2.VideoCapture(0)
 	for i in range(10):

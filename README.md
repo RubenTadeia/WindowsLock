@@ -1,5 +1,7 @@
 # WindowsLock
 
+Shortcut for powershell in windows WIN + X then I or A (for elevated privileges)
+
 Considering python 3.8+
 
 Install python open cv
